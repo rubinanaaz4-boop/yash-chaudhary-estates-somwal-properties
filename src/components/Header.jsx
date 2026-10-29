@@ -1,0 +1,93 @@
+import { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import Icon from './Icons.jsx'
+
+const links = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/properties', label: 'Properties' },
+  { to: '/services', label: 'Services' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
+]
+
+export default function Header({ scrolled }) {
+  const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  useEffect(() => setOpen(false), [pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
+
+  // The header floats over the dark home hero, but sits solid on inner pages.
+  const solid = scrolled || pathname !== '/'
+
+  return (
+    <header className={`site-header ${solid ? 'is-scrolled' : ''} ${open ? 'menu-open' : ''}`}>
+      <div className="container header-inner">
+        <Link to="/" className="brand" aria-label="Yash Chaudhary Estates — home">
+          <span className="brand-mark" aria-hidden="true">
+            <span>YC</span>
+          </span>
+          <span className="brand-text">
+            <strong>Yash Chaudhary</strong>
+            <small>Estates</small>
+          </span>
+        </Link>
+
+        <nav className={`nav ${open ? 'is-open' : ''}`} aria-label="Main navigation">
+          <ul className="nav-list">
+            {links.map((link) => (
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  end={link.end}
+                  className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <div className="nav-drawer-extra">
+            <p className="nav-drawer-label">Talk to an advisor</p>
+            <a href="tel:+919760589858" className="nav-drawer-call">
+              <Icon name="phone" size={18} /> +91 97605 89858
+            </a>
+            <a
+              href="https://wa.me/919760589858?text=Namaste%2C%20I%20would%20like%20to%20discuss%20a%20property."
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-whatsapp btn-block"
+            >
+              <Icon name="whatsapp" size={18} /> WhatsApp us
+            </a>
+          </div>
+        </nav>
+
+        <div className="header-actions">
+          <a href="tel:+919760589858" className="header-phone">
+            <Icon name="phone" size={17} />
+            <span>+91 97605 89858</span>
+          </a>
+          <Link to="/contact" className="btn btn-gold btn-sm header-cta">
+            Book a visit
+          </Link>
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <Icon name={open ? 'close' : 'menu'} size={22} />
+          </button>
+        </div>
+      </div>
+    </header>
+  )
+}
