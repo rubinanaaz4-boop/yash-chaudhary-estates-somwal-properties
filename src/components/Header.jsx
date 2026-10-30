@@ -29,13 +29,13 @@ export default function Header({ scrolled }) {
   return (
     <header className={`site-header ${solid ? 'is-scrolled' : ''} ${open ? 'menu-open' : ''}`}>
       <div className="container header-inner">
-        <Link to="/" className="brand" aria-label="Yash Chaudhary Estates — home">
-          <span className="brand-mark" aria-hidden="true">
-            <span>YC</span>
+        <Link to="/" className="brand" aria-label="Yash Chaudhary Estates | Somwal Properties">
+          <span className="brand-mark brand-mark--img" aria-hidden="true">
+            <img src="/logo.png" alt="Yash Chaudhary Estates | Somwal Properties" />
           </span>
           <span className="brand-text">
             <strong>Yash Chaudhary</strong>
-            <small>Estates</small>
+            <small>Estates | Somwal Properties</small>
           </span>
         </Link>
 
@@ -70,6 +70,10 @@ export default function Header({ scrolled }) {
         </nav>
 
         <div className="header-actions">
+          <a href="tel:+919760589858" className="header-call-btn">
+            <Icon name="phone" size={16} />
+            <span>Call Now</span>
+          </a>
           <a href="tel:+919760589858" className="header-phone">
             <Icon name="phone" size={17} />
             <span>+91 97605 89858</span>
