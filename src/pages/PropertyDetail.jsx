@@ -172,29 +172,29 @@ export default function PropertyDetail() {
               </ul>
             </div>
 
-            {property.video && (
+            {(property.video || property.youtube || property.videoUrl) && (
               <div className="detail-block">
                 <h2>Property Video</h2>
                 <div className="property-video-wrap">
-                  {property.video.includes('youtube.com') || property.video.includes('youtu.be') ? (
-                    <iframe
-                      src={property.video.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/')}
-                      title={`${property.title} - Property Video`}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  ) : property.video.includes('vimeo.com') ? (
-                    <iframe
-                      src={`https://player.vimeo.com/video/${property.video.split('/').pop()}`}
-                      title={`${property.title} - Property Video`}
-                      frameBorder="0"
-                      allow="autoplay; fullscreen; picture-in-picture"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <video src={property.video} controls poster={property.gallery?.[0]} />
-                  )}
+                  {(() => {
+                    const v = property.video || property.youtube || property.videoUrl
+                    if (v.includes('youtube.com/watch')) {
+                      const id = new URL(v).searchParams.get('v')
+                      return <iframe src={`https://www.youtube.com/embed/${id}`} title={`${property.title} - Property Video`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+                    }
+                    if (v.includes('youtu.be/')) {
+                      const id = v.split('youtu.be/')[1].split('?')[0]
+                      return <iframe src={`https://www.youtube.com/embed/${id}`} title={`${property.title} - Property Video`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+                    }
+                    if (v.includes('youtube.com/embed')) {
+                      return <iframe src={v} title={`${property.title} - Property Video`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+                    }
+                    if (v.includes('vimeo.com')) {
+                      const id = v.split('vimeo.com/').pop().split('?')[0]
+                      return <iframe src={`https://player.vimeo.com/video/${id}`} title={`${property.title} - Property Video`} frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen />
+                    }
+                    return <video src={v} controls poster={property.gallery?.[0]} />
+                  })()}
                 </div>
               </div>
             )}
