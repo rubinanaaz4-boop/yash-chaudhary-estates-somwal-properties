@@ -70,7 +70,26 @@ export default function Header({ scrolled }) {
         </nav>
 
         <div className="header-actions">
-          <a href="tel:+919760589858" className="header-call-btn">
+          <a href="tel:+919760589858" className="header-call-btn" onClick={(e) => {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+            if (!isMobile) {
+              e.preventDefault()
+              const number = '+919760589858'
+              try {
+                const ta = document.createElement('textarea')
+                ta.value = number
+                ta.style.position = 'fixed'
+                ta.style.left = '-9999px'
+                document.body.appendChild(ta)
+                ta.select()
+                document.execCommand('copy')
+                document.body.removeChild(ta)
+                alert('Number copied: ' + number)
+              } catch (err) {
+                prompt('Copy this number:', number)
+              }
+            }
+          }}>
             <Icon name="phone" size={16} />
             <span>Call Now</span>
           </a>
