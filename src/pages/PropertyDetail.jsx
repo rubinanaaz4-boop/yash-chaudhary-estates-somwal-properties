@@ -172,6 +172,33 @@ export default function PropertyDetail() {
               </ul>
             </div>
 
+            {property.video && (
+              <div className="detail-block">
+                <h2>Property Video</h2>
+                <div className="property-video-wrap">
+                  {property.video.includes('youtube.com') || property.video.includes('youtu.be') ? (
+                    <iframe
+                      src={property.video.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/')}
+                      title={`${property.title} - Property Video`}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  ) : property.video.includes('vimeo.com') ? (
+                    <iframe
+                      src={`https://player.vimeo.com/video/${property.video.split('/').pop()}`}
+                      title={`${property.title} - Property Video`}
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <video src={property.video} controls poster={property.gallery?.[0]} />
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="detail-block">
               <h2>Location</h2>
               <p>
