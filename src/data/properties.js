@@ -457,6 +457,43 @@ export const properties = [
       'Private driveway',
     ],
   },
+  {
+    id: 13,
+    slug: '102-yard-plot-simla-bypass',
+    title: '102 Yard Plot',
+    city: 'Dehradun',
+    area: 'Shimla Bypass Road',
+    purpose: 'Sale',
+    type: 'Plot',
+    beds: 0,
+    baths: 0,
+    size: '102 sq yd',
+    price: 11500000,
+    priceLabel: '₹ 1.15 Crore',
+    priceNote: '',
+    badge: 'New',
+    featured: true,
+    posted: '2026-10-31',
+    video: '/videos/102-yard-plot-simla-bypass.mp4',
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80',
+    ],
+    description:
+      '102 sq yd plot located on Shimla Bypass Road, 2 km near ISBT Dehradun. Prime location with good road connectivity, suitable for residential construction. Clear title and ready for immediate possession.',
+    features: [
+      '102 sq yd',
+      'Shimla Bypass Road',
+      '2 km from ISBT Dehradun',
+      'Road facing',
+      'Ready for construction',
+      'Clear title',
+      'Good connectivity',
+      'Immediate possession',
+    ],
+  },
 ]
 
 export const getProperty = (slug) => properties.find((p) => p.slug === slug)
