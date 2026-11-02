@@ -264,6 +264,31 @@ export default function PropertyDetail() {
               </a>
             </div>
 
+            {(property.tokenAmount || property.tokenLink) && (
+              <div className="token-payment-card">
+                <div className="token-payment-head">
+                  <span className="token-badge">Token Booking</span>
+                  <h4>Reserve this property</h4>
+                  <p>Pay a small token amount to book your site visit & hold this property for discussion.</p>
+                </div>
+                {property.tokenAmount && (
+                  <div className="token-amount-row">
+                    <span>Token Amount</span>
+                    <strong>{property.tokenLabel || `₹ ${Number(property.tokenAmount).toLocaleString('en-IN')}`}</strong>
+                  </div>
+                )}
+                <a
+                  className="btn btn-gold btn-block"
+                  href={property.tokenLink}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Pay Token Amount <Icon name="arrowUpRight" size={16} />
+                </a>
+                <p className="token-note">Secured by Razorpay • UPI, Cards, Netbanking & Wallets accepted</p>
+              </div>
+            )}
+
             <div className="sidebar-form">
               <LeadForm
                 compact
